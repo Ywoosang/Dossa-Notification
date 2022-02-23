@@ -19,7 +19,8 @@ class Scrapper:
         "30": "휠셋",
         "01": "완성차",
         "02": "부품",
-        "31": "구동계"
+        "31": "구동계",
+        "08" : "용품/기타"
     }
 
     @classmethod
@@ -87,6 +88,7 @@ class Scrapper:
                             is_exist = session.query(Post).filter(Post.title == post.title,Post.date == post.date).first()
                             # 조회 결과가 없다면 None
                             if is_exist:
+                                print(f"stop: 신규 게시물 없음")
                                 return result
 
                             result.append(post)
