@@ -2,16 +2,13 @@ import unittest
 from unittest.mock import MagicMock
 import os
 import sys
-import re
 from typing import List
 from sqlalchemy.orm.base import object_mapper
 
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__)))+"/app")
+from scrapper.scrapper import Scrapper
+from models.models import Post
  
-
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-
-from app.scrapper.scrapper import Scrapper
-from app.models.models import Post
 
 class ScrapperTest(unittest.TestCase):
     """
