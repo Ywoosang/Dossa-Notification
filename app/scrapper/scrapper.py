@@ -1,4 +1,5 @@
 import requests
+import time
 from bs4 import BeautifulSoup
 from sqlalchemy.orm import sessionmaker
 from typing import Dict, List
@@ -6,10 +7,11 @@ from models.models import Post, Category
 from utils.date import DateUtil
 from utils.price import PriceUtil
 from config.config_db import engine
+ 
 
 
 class Scrapper:
-    """도로앤싸이클 사이트로부터 게시글을 가져옴
+    """도로앤싸이클 게시글 스크랩
 
     requests 라이브러리를 이용 도로앤싸이클 사이트의 해당 카테고리의 글들을 가져온다.
     http://corearoadbike.com/board/board.php?g_id=recycle02&t_id=Menu{category_code}Top6&page={page}
@@ -27,13 +29,12 @@ class Scrapper:
     def get_today_posts(cls) -> Dict[str, List[Post]]:
         """ 특정 자전거 카테고리에서 지정한 키워드를 포함하는 페이지 게시글들을 반환한다.
 
-        Args:
-
         Returns:
             List[Post] : 특정 키워드를 포함하는 Post 객체들 배열        
         """
         result = []
         print("start: 게시물 조회 시작")
+        start = time.time()
         for category_code, category_name in cls.category_codes.items():
             page = 1
             is_today_post = True
@@ -88,7 +89,7 @@ class Scrapper:
                             is_exist = session.query(Post).filter(Post.title == post.title,Post.date == post.date).first()
                             # 조회 결과가 없다면 None
                             if is_exist:
-                                print(f"stop: 신규 게시물 없음")
+                                print(f"stop: 신규 게시글 없음")
                                 return result
 
                             result.append(post)
@@ -97,6 +98,7 @@ class Scrapper:
                     page += 1
                 else:
                     print("Error status:", response.status_code)
-
+         
         print(f"end: 게시물 {len(result)}개 조회")
+        print(f"time : {time.time() - start} 소요")
         return result

@@ -2,11 +2,7 @@ from models.models import Post
 from auth.auth import Auth
 import requests
 import json
-import os
 import sys
-
-# 상위 패키지 정보를 추가
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 
 class Messenger:
@@ -44,8 +40,9 @@ class Messenger:
             "template_object":  json.dumps(body, ensure_ascii=False)
         }
 
-        response = requests.post("https://kapi.kakao.com/v2/api/talk/memo/default/send",headers=headers, data=data)
-        
+        response = requests.post(
+            "https://kapi.kakao.com/v2/api/talk/memo/default/send", headers=headers, data=data)
+
         try:
             response.raise_for_status()
             print(f"{post} 전송 완료")
@@ -55,7 +52,7 @@ class Messenger:
         except Exception as e:
             print(e)
             if response.status_code == 401:
-                Auth.update__token()
+                Auth.update_token()
                 if cls.request_count < 3:
                     cls.kakao_talk_post(post)
                 # 호출수가 3 회 이상이라면 문제 발생한것
@@ -97,7 +94,7 @@ class Messenger:
         except Exception as e:
             print(e)
             if response.status_code == 401:
-                Auth.update__token()
+                Auth.update_token()
                 if cls.request_count < 3:
                     cls.kakao_talk(e)
                 # 호출수가 3 회 이상이라면 문제 발생한것
