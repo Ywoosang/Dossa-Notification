@@ -28,10 +28,6 @@ class Scheduler:
             존재 하지 않는 게시글이라면 카카오톡으로 해당 게시글에 대한 정보를 전송한다.
         """
         posts = Scrapper.get_today_posts()
-        # target 객체와 같은 세션이어야 한다.
-        # relationship
-        # 세션에 자동으로 올라감
-        # 세션에 하나씩 올리고 -> commit
         for post in posts:
             Session = sessionmaker(bind=engine)
             session = Session()

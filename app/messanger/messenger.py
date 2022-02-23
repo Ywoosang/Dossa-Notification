@@ -15,7 +15,7 @@ class Messenger:
     관심 키워드가 포함된 도로앤싸이클 신규 게시글을 전송
     애플리케이션에서 에러가 발생한 경우 해당 에러를 전송 
     """
-     
+
     request_count = 0
 
     @classmethod
@@ -44,8 +44,8 @@ class Messenger:
             "template_object":  json.dumps(body, ensure_ascii=False)
         }
 
-        response = requests.post(
-            "https://kapi.kakao.com/v2/api/talk/memo/default/send", headers=headers, data=data)
+        response = requests.post("https://kapi.kakao.com/v2/api/talk/memo/default/send",headers=headers, data=data)
+        
         try:
             response.raise_for_status()
             print(f"{post} 전송 완료")
@@ -57,7 +57,7 @@ class Messenger:
             if response.status_code == 401:
                 Auth.update__token()
                 if cls.request_count < 3:
-                    cls.kakao_talk(post)
+                    cls.kakao_talk_post(post)
                 # 호출수가 3 회 이상이라면 문제 발생한것
                 else:
                     sys.exit()
@@ -68,7 +68,7 @@ class Messenger:
 
         Args:
             e : 메시지로 보낼 게시글 내용을 담고 있는 error 객체
-            
+
         """
         token = Auth.get_access_token()
 
