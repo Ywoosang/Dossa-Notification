@@ -1,12 +1,6 @@
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy import Table, Column, Integer, String, ForeignKey
-import os
-import sys
-
-# 상위 패키지 정보를 추가
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
-from app.config.config_db import engine
-
+from config.config_db import engine
 # 상속 클래스들을 자동으로 인지하고 매핑
 Base = declarative_base()
 
@@ -73,6 +67,7 @@ class Post(Base):
 
     def __repr__(self):
         return f"Post {self.title} {self.price} {self.date} {self.category} {self.targets}"
- 
+        
 # 테이블 스키마 생성
-# Base.metadata.create_all(engine)
+if __name__ == "__main__":
+    Base.metadata.create_all(engine)
