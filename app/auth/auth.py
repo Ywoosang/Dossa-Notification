@@ -1,7 +1,7 @@
 import requests
 import json
 from typing import Dict, List
-from app.config.config_secret import secret_file_path
+from config.config_secret import secret_file_path
 
 
 class Auth:
