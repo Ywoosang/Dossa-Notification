@@ -13,7 +13,9 @@ session.add(Category(name="부품"))
 session.add(Category(name="구동계"))
 session.add(Category(name="용품/기타"))
 
+
 # 키워드 등록
+session.add(Target(keyword="캄파", category_id="1"))
 session.add(Target(keyword="보라원", category_id="1"))
 session.add(Target(keyword="비앙키", category_id="2"))
 session.add(Target(keyword="펄스락", category_id="2"))
