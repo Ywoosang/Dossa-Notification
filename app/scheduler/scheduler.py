@@ -49,4 +49,4 @@ class Scheduler:
         """
         while True:
             cls.task(messanger=Messenger)
-            time.sleep(30)
+            time.sleep(300)

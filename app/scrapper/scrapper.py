@@ -91,7 +91,7 @@ class Scrapper:
                             if is_exist:
                                 print(f"stop: 신규 게시글 없음")
                                 return result
-
+                            print(f"find: 게시물 {post}")
                             result.append(post)
                         else:
                             continue
